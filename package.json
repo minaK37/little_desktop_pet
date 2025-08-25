@@ -1,0 +1,15 @@
+{
+  "name": "desktop-mascot",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^37.3.0"
+  }
+}
