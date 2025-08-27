@@ -1,25 +1,11 @@
-let MIN_WAIT = null;
-let MAX_WAIT = null;
-let DEFAULT_IMG = null;
-let DRAG_IMG = null;
-let idleImages = [];
-
 let idleTimer = null;
 let isDragging = false;
 
-fetch("config/config.json")
-    .then(res => res.json())
-    .then(config => {
-        MAX_WAIT = config.MAX_WAIT;
-        DEFAULT_IMG = config.DEFAULT_IMG;
-        DRAG_IMG = config.DRAG_IMG;
-        idleImages = config.idleImages;
-        setupEvents();
-        startIdleCycle();
-    });
+const { MIN_WAIT, MAX_WAIT, DEFAULT_IMG, DRAG_IMG, idleImages } = window.appConfig;
+setupEvents();
+startIdleCycle();
 
 function setupEvents() {
-    // window.addEventListener('DOMContentLoaded', () => {
     const menu_button = document.getElementById('menu_button');
     const menu = document.getElementById('menu');
     const mascot = document.getElementById('mascot');
@@ -47,31 +33,27 @@ function setupEvents() {
 
     // ドラッグイベント    
     let offset = { x: 0, y: 0 };
-    let windowPos = { x: 0, y: 0 };
+    let dragWidth = 0;
+    let dragHeight = 0;
 
     mascot.addEventListener('mousedown', async (e) => {
         if (e.button !== 0) return;
-
         isDragging = true;
         clearTimeout(idleTimer);
         mascot.src = DRAG_IMG;
 
         const bounds = await window.electronAPI.getWindowBounds();
-        windowPos = { x: bounds.x, y: bounds.y };
         offset = { x: e.screenX - bounds.x, y: e.screenY - bounds.y };
 
-        menu.classList.add("hovered");
+        dragWidth = bounds.width;
+        dragHeight = bounds.height;
     });
 
     window.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-
-        const x = Number(e.screenX - offset.x);
-        const y = Number(e.screenY - offset.y);
-
-        if (!isNaN(x) && !isNaN(y)) {
-            window.electronAPI.moveWindow({ x, y });
-        }
+        const x = Math.round(e.screenX - offset.x);
+        const y = Math.round(e.screenY - offset.y);
+        window.electronAPI.moveWindow({ x, y, width: dragWidth, height: dragHeight });
     });
 
     window.addEventListener('mouseup', () => {
@@ -81,7 +63,7 @@ function setupEvents() {
         menu.classList.remove("hovered");
         startIdleCycle();
     });
-    // });
+
 };
 
 function pickRandomImage() {
@@ -89,20 +71,32 @@ function pickRandomImage() {
     let rand = Math.random() * totalWeight;
     for (const img of idleImages) {
         if (rand < img.weight) {
-            return img.src;
+            return img;
         }
         rand -= img.weight;
     }
-    return DEFAULT_IMG;
+    return 'error';
 }
 function startIdleCycle() {
     clearTimeout(idleTimer);
     const wait = MIN_WAIT + Math.random() * (MAX_WAIT - MIN_WAIT);
+
     idleTimer = setTimeout(() => {
         if (!isDragging) {
-            mascot.src = pickRandomImage();
-            // 次の切替を再度セット
-            startIdleCycle();
+            const pickedImage = pickRandomImage();
+            if(pickedImage == 'error'){
+                startIdleCycle();
+            }
+            mascot.src = pickedImage.src;
+            const uptimeMs = pickedImage.uptime;
+
+            setTimeout(() => {
+                if (!isDragging) {
+                    mascot.src = DEFAULT_IMG;
+                    startIdleCycle();
+                }
+            }, uptimeMs);
         }
     }, wait);
 }
+

@@ -1,26 +1,51 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs');
+
+const configPath = path.join(app.getPath('userData'), 'window_config.json');
+function loadConfig() {
+    try {
+        return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    } catch (e) {
+        return {};
+    }
+}
+function saveConfig(config) {
+    const dir = path.dirname(configPath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+}
 
 let mainWindow;
 
 app.on('ready', () => {
+    const config = loadConfig();
     mainWindow = new BrowserWindow({
-        width: 300,
-        height: 300,
+        x: config.x ?? undefined,
+        y: config.y ?? undefined,
+        width: config.width ?? 300,
+        height: config.height ?? 300,
         transparent: true,
         frame: false,
         alwaysOnTop: true,
         resizable: false,
         hasShadow: false,
         webPreferences: {
-            preload: path.join(__dirname, 'js/preload.js'),
+            preload: path.join(__dirname, 'js','preload.js'),
             contextIsolation: true,
-            nodeIntegration: false
-        }
+            nodeIntegration: false,
+            sandbox: false,
+        },        
     });
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
-
     mainWindow.loadFile('index.html');
+
+    mainWindow.on('close', () => {
+        const bounds = mainWindow.getBounds();
+        saveConfig(bounds);
+    });
+    
 });
 
 // メニュー
@@ -73,14 +98,11 @@ ipcMain.handle('get-window-bounds', () => {
     return mainWindow.getBounds();
 });
 
-ipcMain.on('move-window', (event, { x, y }) => {
-    const bounds = mainWindow.getBounds();
-    if (typeof x === 'number' && typeof y === 'number') {
-        mainWindow.setBounds({
-            x,
-            y,
-            width: bounds.width,
-            height: bounds.height
-        });
-    }
+ipcMain.on('move-window', (event, { x, y, width, height }) => {
+    mainWindow.setBounds({
+        x,
+        y,
+        width,
+        height
+    });
 });
