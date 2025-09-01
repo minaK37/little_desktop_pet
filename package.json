@@ -1,5 +1,5 @@
 {
-  "name": "desctop-idle-idle",
+  "name": "desktop-idle-idle",
   "version": "1.0.0",
   "main": "main.js",
   "description": "The Idle idle on Desktop",
@@ -25,6 +25,11 @@
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "license": "build/NOTICE.txt",
+      "allowToChangeInstallationDirectory": true
     }
   },
   "dependencies": {
