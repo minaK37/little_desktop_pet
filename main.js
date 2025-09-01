@@ -230,7 +230,7 @@ ipcMain.on('start-walking', (event, { duration, direction, VA }) => {
                 });
             }
         } else if (VA == "vertical") {
-            step = 160;
+            step = 200;
             newY += speed;
             if (Math.abs(newY - baseY) <= MOVE_RANGE_V) {
                 mainWindow.setBounds({

@@ -7,14 +7,18 @@
     "DRAG_IMG": "img/mascot_drag.jpg",
     "idleImages": [
         {
+            "default_continue": true,
+            "weight": 50
+        },
+        {
             "src": "img/mascot_idle1.png",
-            "weight": 10,
+            "weight": 20,
             "uptime": 5000,
             "uptime_range": false
         },
         {
             "src": "img/mascot_idle2.png",
-            "weight": 20,
+            "weight": 10,
             "uptime": 2000,
             "uptime_range": false
         },

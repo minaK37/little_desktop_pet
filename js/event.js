@@ -84,8 +84,9 @@ function startIdleCycle() {
     idleTimer = setTimeout(() => {
         if (!isDragging) {
             const pickedImage = pickRandomImage();
-            if (pickedImage == 'error') {
+            if (pickedImage == 'error' || pickedImage.default_continue) {
                 startIdleCycle();
+                return;
             }
             // mascot.style.transform = "scaleX(1)";
             let uptimeMs = MIN_WAIT;
@@ -106,10 +107,10 @@ function startIdleCycle() {
                     }
                 } else if (pickedImage.move == "vertical") {
                     if (Math.random() < 0.5) {
-                        mascot.style.transform = "rotate(-90deg)";
+                        // mascot.style.transform = "rotate(-90deg)";
                         window.electronAPI.walkUp(uptimeMs, pickedImage.move);
                     } else {
-                        mascot.style.transform = "rotate(90deg)";
+                        // mascot.style.transform = "rotate(90deg)";
                         window.electronAPI.walkDown(uptimeMs, pickedImage.move);
                     }
                 }
@@ -120,9 +121,9 @@ function startIdleCycle() {
             setTimeout(() => {
                 if (!isDragging) {
                     window.electronAPI.stopWalking();
-                    if (pickedImage.move == "vertical") {
-                        mascot.style.transform = "rotate(0)";
-                    }
+                    // if (pickedImage.move == "vertical") {
+                    //     mascot.style.transform = "rotate(0)";
+                    // }
                     mascot.src = DEFAULT_IMG;
                     startIdleCycle();
                 }
