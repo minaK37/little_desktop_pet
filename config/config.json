@@ -38,7 +38,7 @@
         {
             "src": "img/mascot_move.png",
             "weight": 10,
-            "uptime": 1000,
+            "uptime": 500,
             "uptime_range": true,
             "move": "vertical"
         }

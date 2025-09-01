@@ -46,8 +46,10 @@ let MOVE_RANGE_V = mainConfig.MOVE_RANGE_V;
 app.on('ready', () => {
     const config = loadConfig();
 
-    MOVE_RANGE_H = MOVE_RANGE_H * config.MOVE_RANGE ?? MOVE_RANGE_H;
-    MOVE_RANGE_V = MOVE_RANGE_V * config.MOVE_RANGE ?? MOVE_RANGE_V;
+    if (config.MOVE_RANGE) {
+        MOVE_RANGE_H = MOVE_RANGE_H * config.MOVE_RANGE;
+        MOVE_RANGE_V = MOVE_RANGE_V * config.MOVE_RANGE;
+    }
 
     mainWindow = new BrowserWindow({
         x: config.x ?? undefined,
