@@ -1,23 +1,42 @@
 {
     "MIN_WAIT": 2000,
     "MAX_WAIT": 5000,
+    "MOVE_RANGE_H": 100,
+    "MOVE_RANGE_V": 30,
     "DEFAULT_IMG": "img/mascot.png",
     "DRAG_IMG": "img/mascot_drag.jpg",
     "idleImages": [
         {
             "src": "img/mascot_idle1.png",
-            "weight": 50,
-            "uptime":10000
+            "weight": 10,
+            "uptime": 5000,
+            "uptime_range": false
         },
         {
             "src": "img/mascot_idle2.png",
-            "weight": 30,
-            "uptime":1000
+            "weight": 20,
+            "uptime": 2000,
+            "uptime_range": false
         },
         {
             "src": "img/mascot_idle3.png",
-            "weight": 20,
-            "uptime":3000
+            "weight": 10,
+            "uptime": 3000,
+            "uptime_range": false
+        },
+        {
+            "src": "img/mascot_move.png",
+            "weight": 50,
+            "uptime": 1000,
+            "uptime_range": true,
+            "move": "horizontal"
+        },
+        {
+            "src": "img/mascot_move.png",
+            "weight": 10,
+            "uptime": 1000,
+            "uptime_range": true,
+            "move": "vertical"
         }
     ]
 }

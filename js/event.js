@@ -84,14 +84,45 @@ function startIdleCycle() {
     idleTimer = setTimeout(() => {
         if (!isDragging) {
             const pickedImage = pickRandomImage();
-            if(pickedImage == 'error'){
+            if (pickedImage == 'error') {
                 startIdleCycle();
             }
+            // mascot.style.transform = "scaleX(1)";
+            let uptimeMs = MIN_WAIT;
+            if (pickedImage.uptime_range) {
+                uptimeMs = pickedImage.uptime + wait;
+            } else {
+                uptimeMs = pickedImage.uptime;
+            }
+            if (pickedImage.move) {
+                mascot.style.transform = "scaleX(1)";
+                if (pickedImage.move == "horizontal") {
+                    if (Math.random() < 0.5) {
+                        mascot.style.transform = "scaleX(-1)";
+                        window.electronAPI.walkRight(uptimeMs, pickedImage.move);
+                    } else {
+                        mascot.style.transform = "scaleX(1)";
+                        window.electronAPI.walkLeft(uptimeMs, pickedImage.move);
+                    }
+                } else if (pickedImage.move == "vertical") {
+                    if (Math.random() < 0.5) {
+                        mascot.style.transform = "rotate(-90deg)";
+                        window.electronAPI.walkUp(uptimeMs, pickedImage.move);
+                    } else {
+                        mascot.style.transform = "rotate(90deg)";
+                        window.electronAPI.walkDown(uptimeMs, pickedImage.move);
+                    }
+                }
+            }
+
             mascot.src = pickedImage.src;
-            const uptimeMs = pickedImage.uptime;
 
             setTimeout(() => {
                 if (!isDragging) {
+                    window.electronAPI.stopWalking();
+                    if (pickedImage.move == "vertical") {
+                        mascot.style.transform = "rotate(0)";
+                    }
                     mascot.src = DEFAULT_IMG;
                     startIdleCycle();
                 }
