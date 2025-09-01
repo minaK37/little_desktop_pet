@@ -3,6 +3,12 @@
     "MAX_WAIT": 5000,
     "MOVE_RANGE_H": 100,
     "MOVE_RANGE_V": 30,
+    "MOVE_RANGE_SMALL": 1.0,
+    "MOVE_RANGE_MIDDLE": 2.0,
+    "MOVE_RANGE_BIG": 5.0,
+    "WINDOW_SIZE_SMALL": 150,
+    "WINDOW_SIZE_MIDDLE": 300,
+    "WINDOW_SIZE_BIG": 500,
     "DEFAULT_IMG": "img/mascot.png",
     "DRAG_IMG": "img/mascot_drag.jpg",
     "idleImages": [

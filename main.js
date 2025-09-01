@@ -90,30 +90,30 @@ ipcMain.on('show-context-menu', (event) => {
                 {
                     label: '小',
                     type: 'radio',
-                    checked: mainWindow.getBounds().width === 150,
+                    checked: mainWindow.getBounds().width === mainConfig.WINDOW_SIZE_SMALL,
                     click: () => {
                         mainWindow.setMinimumSize(0, 0);
                         mainWindow.setMaximumSize(10000, 10000);
-                        mainWindow.setSize(150, 150);
-                        mainWindow.setMinimumSize(150, 150);
+                        mainWindow.setSize(mainConfig.WINDOW_SIZE_SMALL, mainConfig.WINDOW_SIZE_SMALL);
+                        mainWindow.setMinimumSize(mainConfig.WINDOW_SIZE_SMALL, mainConfig.WINDOW_SIZE_SMALL);
                     }
                 },
                 {
                     label: '中',
                     type: 'radio',
-                    checked: mainWindow.getBounds().width === 300,
+                    checked: mainWindow.getBounds().width === mainConfig.WINDOW_SIZE_MIDDLE,
                     click: () => {
                         mainWindow.setMinimumSize(0, 0);
                         mainWindow.setMaximumSize(10000, 10000);
-                        mainWindow.setSize(300, 300);
-                        mainWindow.setMinimumSize(300, 300);
+                        mainWindow.setSize(mainConfig.WINDOW_SIZE_MIDDLE, mainConfig.WINDOW_SIZE_MIDDLE);
+                        mainWindow.setMinimumSize(mainConfig.WINDOW_SIZE_MIDDLE, mainConfig.WINDOW_SIZE_MIDDLE);
                     }
                 },
                 {
                     label: '大',
                     type: 'radio',
-                    checked: mainWindow.getBounds().width === 500,
-                    click: () => { mainWindow.setSize(500, 500); }
+                    checked: mainWindow.getBounds().width === mainConfig.WINDOW_SIZE_BIG,
+                    click: () => { mainWindow.setSize(mainConfig.WINDOW_SIZE_BIG, mainConfig.WINDOW_SIZE_BIG); }
                 },
             ]
         },
@@ -123,31 +123,31 @@ ipcMain.on('show-context-menu', (event) => {
                 {
                     label: '小',
                     type: 'radio',
-                    checked: config.MOVE_RANGE === 1.0,
+                    checked: config.MOVE_RANGE === mainConfig.MOVE_RANGE_SMALL,
                     click: () => {
-                        saveConfig({ MOVE_RANGE: 1.0 });
-                        MOVE_RANGE_H = mainConfig.MOVE_RANGE_H * 1.0;
-                        MOVE_RANGE_V = mainConfig.MOVE_RANGE_V * 1.0;
+                        saveConfig({ MOVE_RANGE: mainConfig.MOVE_RANGE_SMALL });
+                        MOVE_RANGE_H = mainConfig.MOVE_RANGE_H * mainConfig.MOVE_RANGE_SMALL;
+                        MOVE_RANGE_V = mainConfig.MOVE_RANGE_V * mainConfig.MOVE_RANGE_SMALL;
                     }
                 },
                 {
                     label: '中',
                     type: 'radio',
-                    checked: config.MOVE_RANGE === 1.5,
+                    checked: config.MOVE_RANGE === mainConfig.MOVE_RANGE_MIDDLE,
                     click: () => {
-                        saveConfig({ MOVE_RANGE: 1.5 });
-                        MOVE_RANGE_H = mainConfig.MOVE_RANGE_H * 1.5;
-                        MOVE_RANGE_V = mainConfig.MOVE_RANGE_V * 1.5;
+                        saveConfig({ MOVE_RANGE: mainConfig.MOVE_RANGE_MIDDLE });
+                        MOVE_RANGE_H = mainConfig.MOVE_RANGE_H * mainConfig.MOVE_RANGE_MIDDLE;
+                        MOVE_RANGE_V = mainConfig.MOVE_RANGE_V * mainConfig.MOVE_RANGE_MIDDLE;
                     }
                 },
                 {
                     label: '大',
                     type: 'radio',
-                    checked: config.MOVE_RANGE === 2.0,
+                    checked: config.MOVE_RANGE === mainConfig.MOVE_RANGE_BIG,
                     click: () => {
-                        saveConfig({ MOVE_RANGE: 2.0 });
-                        MOVE_RANGE_H = mainConfig.MOVE_RANGE_H * 2.0;
-                        MOVE_RANGE_V = mainConfig.MOVE_RANGE_V * 2.0;
+                        saveConfig({ MOVE_RANGE: mainConfig.MOVE_RANGE_BIG });
+                        MOVE_RANGE_H = mainConfig.MOVE_RANGE_H * mainConfig.MOVE_RANGE_BIG;
+                        MOVE_RANGE_V = mainConfig.MOVE_RANGE_V * mainConfig.MOVE_RANGE_BIG;
                     }
                 }
             ]
