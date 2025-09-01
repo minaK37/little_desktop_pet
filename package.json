@@ -1,8 +1,8 @@
 {
-  "name": "ldp",
+  "name": "desctop-idle-idle",
   "version": "1.0.0",
   "main": "main.js",
-  "description": "",
+  "description": "The Idle idle on Desktop",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
@@ -15,8 +15,8 @@
     "electron-builder": "^26.0.12"
   },
   "build": {
-    "appId": "LittleMascotIdlec",
-    "productName": "LittleMascotIdlec",
+    "appId": "Desktop_Idle_Idle",
+    "productName": "Desktop_Idle_Idle",
     "files": [
       "**/*",
       "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",

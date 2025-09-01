@@ -88,7 +88,6 @@ function startIdleCycle() {
                 startIdleCycle();
                 return;
             }
-            // mascot.style.transform = "scaleX(1)";
             let uptimeMs = MIN_WAIT;
             if (pickedImage.uptime_range) {
                 uptimeMs = pickedImage.uptime + wait;
@@ -98,22 +97,17 @@ function startIdleCycle() {
             if (pickedImage.move) {
                 if (pickedImage.move == "horizontal") {
                     if (Math.random() < 0.5) {
-                        // mascot.style.transform = "scaleX(-1)";
                         mascot.style.transform = "rotateY(180deg)";
                         window.electronAPI.walkRight(uptimeMs, pickedImage.move);
                     } else {
-                        // mascot.style.transform = "scaleX(1)";
                         mascot.style.transform = "rotateY(0deg)";
                         window.electronAPI.walkLeft(uptimeMs, pickedImage.move);
                     }
                 } else if (pickedImage.move == "vertical") {
                     mascot.style.transform = "rotateY(0deg)";
-                    // mascot.style.transform = "scaleX(1)";
                     if (Math.random() < 0.5) {
-                        // mascot.style.transform = "rotate(-90deg)";
                         window.electronAPI.walkUp(uptimeMs, pickedImage.move);
                     } else {
-                        // mascot.style.transform = "rotate(90deg)";
                         window.electronAPI.walkDown(uptimeMs, pickedImage.move);
                     }
                 }
@@ -124,9 +118,6 @@ function startIdleCycle() {
             setTimeout(() => {
                 if (!isDragging) {
                     window.electronAPI.stopWalking();
-                    // if (pickedImage.move == "vertical") {
-                    //     mascot.style.transform = "rotate(0)";
-                    // }
                     mascot.src = DEFAULT_IMG;
                     startIdleCycle();
                 }
