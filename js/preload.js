@@ -11,10 +11,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     closeApp: () => ipcRenderer.send('close-app'),
     moveWindow: ({ x, y, width, height }) => ipcRenderer.send('move-window', { x, y, width, height }),
     getWindowBounds: () => ipcRenderer.invoke('get-window-bounds'),
-    walkLeft: (duration, VA) => ipcRenderer.send('start-walking', { duration, "direction": "left", VA }),
-    walkRight: (duration, VA) => ipcRenderer.send('start-walking', { duration, "direction": "right", VA }),
-    walkUp: (duration, VA) => ipcRenderer.send('start-walking', { duration, "direction": "up", VA }),
-    walkDown: (duration, VA) => ipcRenderer.send('start-walking', { duration, "direction": "down", VA }),
+    walkLeft: (duration, VH) => ipcRenderer.send('start-walking', { duration, "direction": "left", VH }),
+    walkRight: (duration, VH) => ipcRenderer.send('start-walking', { duration, "direction": "right", VH }),
+    walkUp: (duration, VH) => ipcRenderer.send('start-walking', { duration, "direction": "up", VH }),
+    walkDown: (duration, VH) => ipcRenderer.send('start-walking', { duration, "direction": "down", VH }),
     stopWalking: () => ipcRenderer.send('stop-walking'),
 });
 

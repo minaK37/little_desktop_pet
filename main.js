@@ -192,7 +192,7 @@ ipcMain.on('move-window', (event, { x, y, width, height }) => {
 });
 
 
-ipcMain.on('start-walking', (event, { duration, direction, VA }) => {
+ipcMain.on('start-walking', (event, { duration, direction, VH }) => {
     if (!mainWindow) return;
     if (walkInterval) {
         clearInterval(walkInterval);
@@ -221,7 +221,7 @@ ipcMain.on('start-walking', (event, { duration, direction, VA }) => {
         const bounds = mainWindow.getBounds();
         let newX = bounds.x;
         let newY = bounds.y;
-        if (VA == "horizontal") {
+        if (VH == "horizontal") {
             newX += speed;
             if (Math.abs(newX - baseX) <= MOVE_RANGE_H) {
                 mainWindow.setBounds({
@@ -231,7 +231,7 @@ ipcMain.on('start-walking', (event, { duration, direction, VA }) => {
                     height: bounds.height
                 });
             }
-        } else if (VA == "vertical") {
+        } else if (VH == "vertical") {
             step = 200;
             newY += speed;
             if (Math.abs(newY - baseY) <= MOVE_RANGE_V) {
