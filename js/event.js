@@ -77,59 +77,9 @@ function pickRandomImage() {
     }
     return 'error';
 }
-// function startIdleCycle() {
-//     clearTimeout(idleTimer);
-//     const wait = MIN_WAIT + Math.random() * (MAX_WAIT - MIN_WAIT);
-
-//     idleTimer = setTimeout(() => {
-//         if (!isDragging) {
-//             const pickedImage = pickRandomImage();
-//             if (pickedImage == 'error' || pickedImage.default_continue) {
-//                 startIdleCycle();
-//                 return;
-//             }
-//             let uptimeMs = MIN_WAIT;
-//             if (pickedImage.uptime_range) {
-//                 uptimeMs = pickedImage.uptime + wait;
-//             } else {
-//                 uptimeMs = pickedImage.uptime;
-//             }
-//             if (pickedImage.move) {
-//                 if (pickedImage.move == "horizontal") {
-//                     if (Math.random() < 0.5) {
-//                         mascot.style.transform = "rotateY(180deg)";
-//                         window.electronAPI.walkRight(uptimeMs, pickedImage.move);
-//                     } else {
-//                         mascot.style.transform = "rotateY(0deg)";
-//                         window.electronAPI.walkLeft(uptimeMs, pickedImage.move);
-//                     }
-//                 } else if (pickedImage.move == "vertical") {
-//                     mascot.style.transform = "rotateY(0deg)";
-//                     if (Math.random() < 0.5) {
-//                         window.electronAPI.walkUp(uptimeMs, pickedImage.move);
-//                     } else {
-//                         window.electronAPI.walkDown(uptimeMs, pickedImage.move);
-//                     }
-//                 }
-//             }
-
-//             mascot.src = pickedImage.src;
-
-//             setTimeout(() => {
-//                 if (!isDragging) {
-//                     window.electronAPI.stopWalking();
-//                     mascot.src = DEFAULT_IMG;
-//                     startIdleCycle();
-//                 }
-//             }, uptimeMs);
-//         }
-//     }, wait);
-// }
-
 function startIdleCycle(skipWait = false) {
     clearTimeout(idleTimer);
 
-    // wait をスキップする場合は 0 にする
     const wait = skipWait ? 0 : MIN_WAIT + Math.random() * (MAX_WAIT - MIN_WAIT);
 
     idleTimer = setTimeout(() => {
@@ -144,7 +94,6 @@ function startIdleCycle(skipWait = false) {
                 ? pickedImage.uptime + wait
                 : pickedImage.uptime;
 
-            // 移動処理
             if (pickedImage.move) {
                 if (pickedImage.move == "horizontal") {
                     if (Math.random() < 0.5) {
@@ -171,10 +120,8 @@ function startIdleCycle(skipWait = false) {
                     window.electronAPI.stopWalking();
 
                     if (pickedImage.move && Math.random() < 0.1) {
-                        // デフォルトに戻らず、即次のランダム画像へ
                         startIdleCycle(true);
                     } else {
-                        // デフォルトに戻してから wait を挟む
                         mascot.src = DEFAULT_IMG;
                         startIdleCycle();
                     }
