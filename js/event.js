@@ -1,7 +1,11 @@
 let idleTimer = null;
 let isDragging = false;
 
-const { MIN_WAIT, MAX_WAIT, DEFAULT_IMG, DRAG_IMG, idleImages } = window.appConfig;
+const { MIN_WAIT, MAX_WAIT, DEFAULT_IMG, DRAG_IMG, idleImages, hourlyImages } = window.appConfig;
+document.addEventListener("DOMContentLoaded", () => {
+    mascot.src = DEFAULT_IMG;
+});
+
 setupEvents();
 startIdleCycle();
 
@@ -130,3 +134,32 @@ function startIdleCycle(skipWait = false) {
         }
     }, wait);
 }
+
+setInterval(() => {
+    const now = new Date();
+    if (now.getMinutes() === 0) {
+        // if (now.getMinutes() === 0 && now.getSeconds() === 0) {
+        checkHourlyEvent();
+    }
+}, 60000);
+// }, 1000);
+
+function checkHourlyEvent() {
+    const now = new Date();
+    const h = now.getHours().toString();
+
+    const configEntry = hourlyImages[h] || hourlyImages["default"];
+    if (!configEntry) return;
+
+    clearTimeout(idleTimer);
+
+    mascot.src = configEntry.src;
+
+    const uptimeMs = configEntry.uptime || 3000;
+
+    setTimeout(() => {
+        mascot.src = DEFAULT_IMG;
+        startIdleCycle();
+    }, uptimeMs);
+}
+

@@ -30,7 +30,7 @@
         },
         {
             "src": "img/mascot_idle3.png",
-            "weight": 10,
+            "weight": 0,
             "uptime": 3000,
             "uptime_range": false
         },
@@ -48,5 +48,19 @@
             "uptime_range": true,
             "move": "vertical"
         }
-    ]
+    ],
+    "hourlyImages": {
+        "17": {
+            "src": "img/mascot_drag.jpg",
+            "uptime": 8000
+        },
+        "16": {
+            "src": "img/mascot_drag.jpg",
+            "uptime": 5000
+        },
+        "default": {
+            "src": "img/mascot_drag.jpg",
+            "uptime": 4000
+        }
+    }
 }

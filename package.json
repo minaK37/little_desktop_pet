@@ -1,8 +1,8 @@
 {
-  "name": "desktop-idle-idle",
+  "name": "desktop-idle-idol",
   "version": "1.0.0",
   "main": "main.js",
-  "description": "The Idle idle on Desktop",
+  "description": "The Idle idol on Desktop",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
@@ -15,8 +15,8 @@
     "electron-builder": "^26.0.12"
   },
   "build": {
-    "appId": "Desktop_Idle_Idle",
-    "productName": "Desktop_Idle_Idle",
+    "appId": "Desktop_Idle_Idol",
+    "productName": "Desktop_Idle_Idol",
     "files": [
       "**/*",
       "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
