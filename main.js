@@ -157,10 +157,10 @@ ipcMain.on('show-context-menu', (event) => {
             label: 'アプリを終了',
             click: () => { app.quit(); }
         },
-        {
-            label: '開発者ツール',
-            click: () => { mainWindow.webContents.openDevTools({ mode: 'detach' }); }
-        }
+        // {
+        //     label: '開発者ツール',
+        //     click: () => { mainWindow.webContents.openDevTools({ mode: 'detach' }); }
+        // }
     ];
 
     const menu = Menu.buildFromTemplate(template);
